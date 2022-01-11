@@ -18,3 +18,11 @@ sa-token:
   token-style: uuid
   # 是否输出操作日志
   is-log: true
+
+# 数据库配置
+spring:
+  datasource:
+    url: jdbc:postgresql://moyudev.com:5432/postgres
+    username: postgres
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource
