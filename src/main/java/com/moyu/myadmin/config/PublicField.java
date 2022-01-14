@@ -15,52 +15,35 @@ import java.util.Date;
 @Data
 public class PublicField {
 
-    /**
-     * 创建人单位编码
-     */
-    @TableField(fill = FieldFill.INSERT)
-    private String custNo;
-    /**
-     * 创建人单位编码
-     */
-    @TableField(fill = FieldFill.INSERT)
-    private String custName;
+
     /**
      * 创建人
      */
     @TableField(fill = FieldFill.INSERT)
-    private String creatorNo;
-    /**
-     * 创建人名称
-     */
-    @TableField(fill = FieldFill.INSERT)
-    private String creatorName;
+    private String createBy;
+
     /**
      * 创建时间
      */
     @TableField(fill = FieldFill.INSERT)
-    private Date createTime;
+    private Date createDate;
     /**
      * 更新人
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    private String lastUpdatorNo;
-    /**
-     * 更新人名称
-     */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private String lastUpdatorName;
+    private String updateBy;
+
     /**
      * 更新时间
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Date lastUpdateTime;
+    private Date updateDate;
     /**
      * 版本（用于乐观锁）
      */
     @Version
     @TableField(fill = FieldFill.INSERT,update = "%s+1")
-    private Integer version;
+    private Integer rowVersion;
 
     /**
      * 逻辑删除 0 未删除 1 删除

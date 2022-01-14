@@ -21,8 +21,20 @@ sa-token:
 
 # 数据库配置
 spring:
+  application:
+    name: moyuadmin
   datasource:
     url: jdbc:postgresql://moyudev.com:5432/postgres
     username: postgres
     password: 123456
     type: com.alibaba.druid.pool.DruidDataSource
+
+# mybatis-plus相关配置
+mybatis-plus:
+  # xml扫描，多个目录用逗号或者分号分隔（告诉 Mapper 所对应的 XML 文件位置）
+  mapper-locations: classpath:mapper/*.xml
+  # 日志打印
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+
