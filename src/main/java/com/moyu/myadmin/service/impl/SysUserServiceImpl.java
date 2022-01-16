@@ -11,6 +11,7 @@ import com.moyu.myadmin.mapper.SysUserMapper;
 import com.moyu.myadmin.service.SysUserService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 
@@ -43,5 +44,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<SysUserEntity> queryList(SysUserEntity entity) {
+        return this.lambdaQuery().list();
     }
 }

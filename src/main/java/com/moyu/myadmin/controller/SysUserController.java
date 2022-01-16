@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Log4j2
 @Api(tags="用户管理")
@@ -30,6 +31,14 @@ public class SysUserController {
         this.sysUserService = sysUserService;
     }
 
+    @ApiOperation("查询所有用户信息")
+    @RequestMapping("queryList")
+    public ResultData<List<SysUserEntity>> queryList(SysUserEntity entity) {
+        List<SysUserEntity> userEntities = sysUserService.queryList(entity);
+        return ResultData.success(userEntities);
+    }
+
+    @ApiOperation("用户登录")
     @RequestMapping("doLogin")
     public ResultData<String> doLogin(String username, String password) {
         boolean loginFlag = sysUserService.doLogin(username, password);
