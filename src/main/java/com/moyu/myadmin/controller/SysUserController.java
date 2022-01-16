@@ -30,24 +30,25 @@ public class SysUserController {
         this.sysUserService = sysUserService;
     }
 
-    @ApiOperation("添加用户")
-    @RequestMapping("save")
-    public ResultData<SysUserEntity> save(@ApiParam(value = "用户信息") @Valid SysUserEntity user) {
-        boolean save = sysUserService.save(user);
-        return save ? ResultData.success(user) : ResultData.error(ReturnCode.RC999.getCode(), ReturnCode.RC999.getMessage());
-    }
-
-
     // 测试登录，浏览器访问： http://localhost:8082/user/doLogin?username=zhang&password=123456
     @RequestMapping("doLogin")
     public ResultData<String> doLogin(String username, String password) {
+        boolean loginFlag = sysUserService.doLogin(username, password);
         // 此处仅作模拟示例，真实项目需要从数据库中查询数据进行比对
-        if("zhang".equals(username) && "123456".equals(password)) {
+        if(loginFlag) {
             StpUtil.login(10001);
             return ResultData.success("登录成功");
         }
         return ResultData.error(200, "登录失败");
     }
+
+    @ApiOperation("添加用户")
+    @RequestMapping("save")
+    public ResultData<SysUserEntity> save(@ApiParam(value = "用户信息") @Valid SysUserEntity user) {
+        boolean save = sysUserService.saveUser(user);
+        return save ? ResultData.success(user) : ResultData.error(ReturnCode.RC999.getCode(), ReturnCode.RC999.getMessage());
+    }
+
 
     // 查询登录状态，浏览器访问： http://localhost:8082/user/isLogin
     @RequestMapping("isLogin")

@@ -10,6 +10,8 @@ import java.util.Date;
 
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
+
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value="用户基本信息")
 @Data
@@ -35,6 +37,7 @@ public class SysUserEntity extends PublicField implements Serializable {
     /**
     * 密码
     */
+    @NotNull
     @ApiModelProperty(value="密码")
     private String password;
 
