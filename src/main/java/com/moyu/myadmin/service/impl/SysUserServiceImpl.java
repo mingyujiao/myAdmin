@@ -1,6 +1,7 @@
 package com.moyu.myadmin.service.impl;
 
 import cn.dev33.satoken.secure.SaSecureUtil;
+import cn.dev33.satoken.stp.StpUtil;
 import com.alibaba.druid.util.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -37,6 +38,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
         wrapper.eq("username", username);
         SysUserEntity user = baseMapper.selectOne(wrapper);
         String md5BySalt = SaSecureUtil.md5BySalt(password, user.getUserName().substring(0, 6));
-        return StringUtils.equals(user.getPassword(), md5BySalt);
+        if (StringUtils.equals(user.getPassword(), md5BySalt)) {
+            StpUtil.login(user.getUserId());
+            return true;
+        }
+        return false;
     }
 }

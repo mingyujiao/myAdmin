@@ -30,16 +30,10 @@ public class SysUserController {
         this.sysUserService = sysUserService;
     }
 
-    // 测试登录，浏览器访问： http://localhost:8082/user/doLogin?username=zhang&password=123456
     @RequestMapping("doLogin")
     public ResultData<String> doLogin(String username, String password) {
         boolean loginFlag = sysUserService.doLogin(username, password);
-        // 此处仅作模拟示例，真实项目需要从数据库中查询数据进行比对
-        if(loginFlag) {
-            StpUtil.login(10001);
-            return ResultData.success("登录成功");
-        }
-        return ResultData.error(200, "登录失败");
+        return loginFlag ? ResultData.success("登录成功") : ResultData.error(200, "登录失败");
     }
 
     @ApiOperation("添加用户")
