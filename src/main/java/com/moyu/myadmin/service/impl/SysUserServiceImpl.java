@@ -2,13 +2,12 @@ package com.moyu.myadmin.service.impl;
 
 import cn.dev33.satoken.secure.SaSecureUtil;
 import cn.dev33.satoken.stp.StpUtil;
-import com.alibaba.druid.util.StringUtils;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.moyu.myadmin.entity.SysUserEntity;
 import com.moyu.myadmin.mapper.SysUserMapper;
 import com.moyu.myadmin.service.SysUserService;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,14 +33,15 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
     }
 
     @Override
-    public boolean doLogin(String username, String password) {
-        QueryWrapper<SysUserEntity> wrapper = new QueryWrapper<>();
-        wrapper.eq("username", username);
-        SysUserEntity user = baseMapper.selectOne(wrapper);
-        String md5BySalt = SaSecureUtil.md5BySalt(password, user.getUserName().substring(0, 6));
-        if (StringUtils.equals(user.getPassword(), md5BySalt)) {
-            StpUtil.login(user.getUserId());
-            return true;
+    public boolean doLogin(SysUserEntity entity) {
+        List<SysUserEntity> list = this.lambdaQuery().eq(SysUserEntity::getUserName, entity.getUserName()).list();
+        if (CollectionUtils.isNotEmpty(list)) {
+            SysUserEntity user = list.get(0);
+            String md5BySalt = SaSecureUtil.md5BySalt(entity.getPassword(), user.getUserName().substring(0, 6));
+            if (StringUtils.equals(user.getPassword(), md5BySalt)) {
+                StpUtil.login(user.getUserId());
+                return true;
+            }
         }
         return false;
     }

@@ -12,8 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -32,21 +31,21 @@ public class SysUserController {
     }
 
     @ApiOperation("查询所有用户信息")
-    @RequestMapping("queryList")
+    @PostMapping("queryList")
     public ResultData<List<SysUserEntity>> queryList(SysUserEntity entity) {
         List<SysUserEntity> userEntities = sysUserService.queryList(entity);
         return ResultData.success(userEntities);
     }
 
     @ApiOperation("用户登录")
-    @RequestMapping("doLogin")
-    public ResultData<String> doLogin(String username, String password) {
-        boolean loginFlag = sysUserService.doLogin(username, password);
-        return loginFlag ? ResultData.success("登录成功") : ResultData.error(200, "登录失败");
+    @PostMapping("doLogin")
+    public ResultData<String> doLogin(@RequestBody @Valid SysUserEntity entity) {
+        boolean loginFlag = sysUserService.doLogin(entity);
+        return loginFlag ? ResultData.success("登录成功") : ResultData.error(ReturnCode.RC999.getCode(), "登录失败");
     }
 
     @ApiOperation("添加用户")
-    @RequestMapping("save")
+    @PostMapping("save")
     public ResultData<SysUserEntity> save(@ApiParam(value = "用户信息") @Valid SysUserEntity user) {
         boolean save = sysUserService.saveUser(user);
         return save ? ResultData.success(user) : ResultData.error(ReturnCode.RC999.getCode(), ReturnCode.RC999.getMessage());
@@ -54,19 +53,19 @@ public class SysUserController {
 
 
     // 查询登录状态，浏览器访问： http://localhost:8082/user/isLogin
-    @RequestMapping("isLogin")
+    @GetMapping("isLogin")
     public String isLogin() {
         return "当前会话是否登录：" + StpUtil.isLogin();
     }
 
     // 查询 Token 信息  ---- http://localhost:8082/acc/tokenInfo
-    @RequestMapping("tokenInfo")
+    @GetMapping("tokenInfo")
     public SaResult tokenInfo() {
         return SaResult.data(StpUtil.getTokenInfo());
     }
 
     // 测试注销  ---- http://localhost:8082/user/logout
-    @RequestMapping("logout")
+    @GetMapping("logout")
     public SaResult logout() {
         StpUtil.logout();
         return SaResult.ok();

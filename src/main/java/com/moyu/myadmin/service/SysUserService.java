@@ -21,11 +21,10 @@ public interface SysUserService extends IService<SysUserEntity> {
 
     /**
      * 用户登录
-     * @param username 用户名称
-     * @param password 密码
+     * @param entity 用户登录信息
      * @return 成功失败
      */
-    boolean doLogin(String username, String password);
+    boolean doLogin(SysUserEntity entity);
 
 
     /**
