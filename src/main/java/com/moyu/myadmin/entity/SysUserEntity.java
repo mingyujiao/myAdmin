@@ -10,7 +10,7 @@ import java.util.Date;
 
 import lombok.*;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 
 @EqualsAndHashCode(callSuper = true)
 @ApiModel(value="用户基本信息")
@@ -31,14 +31,15 @@ public class SysUserEntity extends PublicField implements Serializable {
     /**
     * 用户名
     */
-    @ApiModelProperty(value="用户名")
-    private String userName;
+    @NotEmpty(message = "用户名不能为空")
+    @ApiModelProperty(value="用户名", required = true)
+    private String username;
 
     /**
     * 密码
     */
-    @NotNull
-    @ApiModelProperty(value="密码")
+    @NotEmpty(message = "用户密码不能为空")
+    @ApiModelProperty(value="密码", required = true)
     private String password;
 
     /**

@@ -25,8 +25,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
     @Override
     public boolean saveUser(SysUserEntity user) {
         if (Objects.nonNull(user)) {
-            String passWord = Objects.isNull(user.getPassword()) ? "123456" : user.getPassword();
-            String md5BySalt = SaSecureUtil.md5BySalt(passWord, user.getUserName().substring(0, 6));
+            String md5BySalt = getMd5BySalt(user);
             user.setPassword(md5BySalt);
         }
         return this.save(user);
@@ -34,16 +33,25 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
 
     @Override
     public boolean doLogin(SysUserEntity entity) {
-        List<SysUserEntity> list = this.lambdaQuery().eq(SysUserEntity::getUserName, entity.getUserName()).list();
+        List<SysUserEntity> list = this.lambdaQuery().eq(SysUserEntity::getUsername, entity.getUsername()).list();
         if (CollectionUtils.isNotEmpty(list)) {
             SysUserEntity user = list.get(0);
-            String md5BySalt = SaSecureUtil.md5BySalt(entity.getPassword(), user.getUserName().substring(0, 6));
+            String md5BySalt = getMd5BySalt(entity);
             if (StringUtils.equals(user.getPassword(), md5BySalt)) {
                 StpUtil.login(user.getUserId());
                 return true;
             }
         }
         return false;
+    }
+
+    /**
+     * 获取 md5 + 盐 后的密码
+     * @param entity 用户对象
+     * @return 密码
+     */
+    private String getMd5BySalt(SysUserEntity entity) {
+        return SaSecureUtil.md5BySalt(entity.getPassword(), entity.getUsername().substring(0, 3));
     }
 
     @Override

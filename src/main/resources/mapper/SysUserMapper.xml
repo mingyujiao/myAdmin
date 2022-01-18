@@ -5,7 +5,7 @@
     <!--@mbg.generated-->
     <!--@Table sys_user-->
     <id column="user_id" jdbcType="VARCHAR" property="userId" />
-    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="phone_num" jdbcType="VARCHAR" property="phoneNum" />

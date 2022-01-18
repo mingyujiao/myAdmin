@@ -14,6 +14,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -46,6 +47,7 @@ public class JacksonConfig {
      * 重写 objectMapper 空值，字段返回前端，防止没有该属性前端字段赋值页面不展示
      */
     @Bean
+    @Primary
     public ObjectMapper objectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
         // 忽略json字符串中不识别的属性
@@ -57,7 +59,7 @@ public class JacksonConfig {
 
         // 时间格式化
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+        objectMapper.setDateFormat(new SimpleDateFormat(DEFAULT_DATE_TIME_FORMAT));
 
         // java8日期日期处理
         JavaTimeModule javaTimeModule = new JavaTimeModule();
