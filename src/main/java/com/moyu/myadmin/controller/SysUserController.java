@@ -1,6 +1,7 @@
 package com.moyu.myadmin.controller;
 
 
+import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
@@ -36,6 +37,8 @@ public class SysUserController {
     @PostMapping("getUser")
     public ResultData<SysUserEntity> getUser(SysUserEntity entity) {
         entity = sysUserService.getById(entity.getUserId());
+        SaSession session = StpUtil.getTokenSession();
+        log.info("当前登录用户的用户ID：{}", session.get("userId"));
         return ResultData.success(entity);
     }
 

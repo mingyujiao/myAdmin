@@ -40,4 +40,11 @@ public class ResultData<T> {
         return resultData;
     }
 
+    public static <T> ResultData<T> error(String message) {
+        ResultData<T> resultData = new ResultData<>();
+        resultData.setStatus(ReturnCode.RC999.getCode());
+        resultData.setMessage(message);
+        return resultData;
+    }
+
 }

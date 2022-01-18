@@ -1,6 +1,7 @@
 package com.moyu.myadmin.service.impl;
 
 import cn.dev33.satoken.secure.SaSecureUtil;
+import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.StpUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.moyu.myadmin.entity.SysUserEntity;
@@ -39,6 +40,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
             String md5BySalt = getMd5BySalt(entity);
             if (StringUtils.equals(user.getPassword(), md5BySalt)) {
                 StpUtil.login(user.getUserId());
+                SaSession session = StpUtil.getTokenSession();
+                session.set("userId", user.getUserId());
                 return true;
             }
         }
