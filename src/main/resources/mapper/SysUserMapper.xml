@@ -13,6 +13,11 @@
     <result column="birthday" jdbcType="DATE" property="birthday" />
     <result column="id_card" jdbcType="VARCHAR" property="idCard" />
     <result column="nationality" jdbcType="VARCHAR" property="nationality" />
+    <result column="name" jdbcType="VARCHAR" property="nationality" />
   </resultMap>
 
+  <select id="queryListPage" resultMap="BaseResultMap">
+    select *
+    from sys_user where del_flag = 0
+  </select>
 </mapper>

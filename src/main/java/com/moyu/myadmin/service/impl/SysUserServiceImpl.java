@@ -3,7 +3,9 @@ package com.moyu.myadmin.service.impl;
 import cn.dev33.satoken.secure.SaSecureUtil;
 import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.StpUtil;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.moyu.myadmin.dto.SysUserDTO;
 import com.moyu.myadmin.entity.SysUserEntity;
 import com.moyu.myadmin.mapper.SysUserMapper;
 import com.moyu.myadmin.service.SysUserService;
@@ -60,5 +62,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
     @Override
     public List<SysUserEntity> queryList(SysUserEntity entity) {
         return this.lambdaQuery().list();
+    }
+
+    @Override
+    public Page<SysUserEntity> queryListPage(Page<SysUserDTO> dto) {
+        return baseMapper.queryListPage(dto);
     }
 }

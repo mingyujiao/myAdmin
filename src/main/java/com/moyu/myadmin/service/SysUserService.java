@@ -1,6 +1,8 @@
 package com.moyu.myadmin.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.moyu.myadmin.dto.SysUserDTO;
 import com.moyu.myadmin.entity.SysUserEntity;
 
 import java.util.List;
@@ -33,4 +35,11 @@ public interface SysUserService extends IService<SysUserEntity> {
      * @return 用户集合
      */
     List<SysUserEntity> queryList(SysUserEntity entity);
+
+    /**
+     * 分页查询用户信息
+     * @param dto 查询对象
+     * @return 分页信息
+     */
+    Page<SysUserEntity> queryListPage(Page<SysUserDTO> dto);
 }

@@ -5,6 +5,8 @@ import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.moyu.myadmin.dto.SysUserDTO;
 import com.moyu.myadmin.entity.SysUserEntity;
 import com.moyu.myadmin.service.SysUserService;
 import com.moyu.myadmin.utils.ResultData;
@@ -31,6 +33,13 @@ public class SysUserController {
     @Autowired
     public SysUserController(SysUserService sysUserService) {
         this.sysUserService = sysUserService;
+    }
+
+    @ApiOperation(value = "分页重新用户信息")
+    @PostMapping("queryListPage")
+    public ResultData<Page<SysUserEntity>> queryListPage(Page<SysUserDTO> dto) {
+        Page<SysUserEntity> page = sysUserService.queryListPage(dto);
+        return ResultData.success(page);
     }
 
     @ApiOperation(value = "获取用户信息")

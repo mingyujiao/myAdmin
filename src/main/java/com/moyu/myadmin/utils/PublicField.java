@@ -1,4 +1,4 @@
-package com.moyu.myadmin.config;
+package com.moyu.myadmin.utils;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
