@@ -9,6 +9,7 @@ import com.moyu.myadmin.dto.SysUserDTO;
 import com.moyu.myadmin.entity.SysUserEntity;
 import com.moyu.myadmin.mapper.SysUserMapper;
 import com.moyu.myadmin.service.SysUserService;
+import com.moyu.myadmin.utils.QueryData;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -65,7 +66,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
     }
 
     @Override
-    public Page<SysUserEntity> queryListPage(Page<SysUserDTO> dto) {
-        return baseMapper.queryListPage(dto);
+    public Page<SysUserEntity> queryListPage(QueryData<SysUserDTO> queryData) {
+        Page<SysUserDTO> page = new Page<>(queryData.getPageNum(), queryData.getPageSize());
+        return baseMapper.queryListPage(page, queryData.getData());
     }
 }

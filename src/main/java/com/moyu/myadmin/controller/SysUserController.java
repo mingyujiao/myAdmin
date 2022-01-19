@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moyu.myadmin.dto.SysUserDTO;
 import com.moyu.myadmin.entity.SysUserEntity;
 import com.moyu.myadmin.service.SysUserService;
+import com.moyu.myadmin.utils.QueryData;
 import com.moyu.myadmin.utils.ResultData;
 import com.moyu.myadmin.utils.ReturnCode;
 import io.swagger.annotations.Api;
@@ -37,8 +38,8 @@ public class SysUserController {
 
     @ApiOperation(value = "分页重新用户信息")
     @PostMapping("queryListPage")
-    public ResultData<Page<SysUserEntity>> queryListPage(Page<SysUserDTO> dto) {
-        Page<SysUserEntity> page = sysUserService.queryListPage(dto);
+    public ResultData<Page<SysUserEntity>> queryListPage(QueryData<SysUserDTO> queryData) {
+        Page<SysUserEntity> page = sysUserService.queryListPage(queryData);
         return ResultData.success(page);
     }
 
