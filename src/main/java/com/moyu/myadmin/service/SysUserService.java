@@ -43,4 +43,9 @@ public interface SysUserService extends IService<SysUserEntity> {
      * @return 分页信息
      */
     Page<SysUserEntity> queryListPage(QueryData<SysUserDTO> queryData);
+
+    /**
+     * 根据 id 获取用户信息
+     */
+    SysUserEntity getUserByToken();
 }

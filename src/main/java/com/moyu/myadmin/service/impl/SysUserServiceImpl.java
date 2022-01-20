@@ -10,6 +10,8 @@ import com.moyu.myadmin.entity.SysUserEntity;
 import com.moyu.myadmin.mapper.SysUserMapper;
 import com.moyu.myadmin.service.SysUserService;
 import com.moyu.myadmin.utils.QueryData;
+import com.moyu.myadmin.utils.SysConstant;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,7 @@ import java.util.Objects;
  * @date 2022/1/14 22:36
  */
 
+@Log4j2
 @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity> implements SysUserService {
 
@@ -44,7 +47,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
             if (StringUtils.equals(user.getPassword(), md5BySalt)) {
                 StpUtil.login(user.getUserId());
                 SaSession session = StpUtil.getTokenSession();
-                session.set("userId", user.getUserId());
+                session.set(SysConstant.SESSION_KEY, user);
                 return true;
             }
         }
@@ -69,5 +72,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
     public Page<SysUserEntity> queryListPage(QueryData<SysUserDTO> queryData) {
         Page<SysUserDTO> page = new Page<>(queryData.getPageNum(), queryData.getPageSize());
         return baseMapper.queryListPage(page, queryData.getData());
+    }
+
+    @Override
+    public SysUserEntity getUserByToken() {
+        SaSession session = StpUtil.getTokenSession();
+        log.info("当前登录用户信息：{}", session.get(SysConstant.SESSION_KEY));
+        return (SysUserEntity) session.get(SysConstant.SESSION_KEY);
     }
 }

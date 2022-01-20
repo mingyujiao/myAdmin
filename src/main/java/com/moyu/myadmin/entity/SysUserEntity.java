@@ -6,7 +6,7 @@ import com.moyu.myadmin.utils.PublicField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 import lombok.*;
 
@@ -64,7 +64,7 @@ public class SysUserEntity extends PublicField implements Serializable {
     * 出生日期
     */
     @ApiModelProperty(value="出生日期")
-    private Date birthday;
+    private LocalDate birthday;
 
     /**
     * 身份证号

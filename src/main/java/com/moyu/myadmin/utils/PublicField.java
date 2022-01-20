@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.Version;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author jiaomingyu5778@gmail.com
@@ -26,7 +26,7 @@ public class PublicField {
      * 创建时间
      */
     @TableField(fill = FieldFill.INSERT)
-    private Date createDate;
+    private LocalDateTime createDate;
     /**
      * 更新人
      */
@@ -37,7 +37,7 @@ public class PublicField {
      * 更新时间
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Date updateDate;
+    private LocalDateTime updateDate;
     /**
      * 版本（用于乐观锁）
      */

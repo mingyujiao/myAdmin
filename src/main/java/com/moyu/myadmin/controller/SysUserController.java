@@ -1,7 +1,6 @@
 package com.moyu.myadmin.controller;
 
 
-import cn.dev33.satoken.session.SaSession;
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
@@ -38,18 +37,15 @@ public class SysUserController {
 
     @ApiOperation(value = "分页重新用户信息")
     @PostMapping("queryListPage")
-    public ResultData<Page<SysUserEntity>> queryListPage(QueryData<SysUserDTO> queryData) {
+    public ResultData<Page<SysUserEntity>> queryListPage(@RequestBody QueryData<SysUserDTO> queryData) {
         Page<SysUserEntity> page = sysUserService.queryListPage(queryData);
         return ResultData.success(page);
     }
 
     @ApiOperation(value = "获取用户信息")
-    @PostMapping("getUser")
-    public ResultData<SysUserEntity> getUser(SysUserEntity entity) {
-        entity = sysUserService.getById(entity.getUserId());
-        SaSession session = StpUtil.getTokenSession();
-        log.info("当前登录用户的用户ID：{}", session.get("userId"));
-        return ResultData.success(entity);
+    @PostMapping("getUserByToken")
+    public ResultData<SysUserEntity> getUserByToken() {
+        return ResultData.success(sysUserService.getUserByToken());
     }
 
     @ApiOperation(value = "查询所有用户信息")
@@ -70,7 +66,7 @@ public class SysUserController {
 
     @ApiOperation(value = "添加用户")
     @PostMapping("save")
-    public ResultData<SysUserEntity> save(@ApiParam(value = "用户信息") @Valid SysUserEntity user) {
+    public ResultData<SysUserEntity> save(@ApiParam(value = "用户信息") @Valid @RequestBody SysUserEntity user) {
         boolean save = sysUserService.saveUser(user);
         return save ? ResultData.success(user) : ResultData.error(ReturnCode.RC999.getCode(), ReturnCode.RC999.getMessage());
     }
