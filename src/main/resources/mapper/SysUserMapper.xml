@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.moyu.myadmin.mapper.SysUserMapper">
-  <resultMap id="BaseResultMap" type="com.moyu.myadmin.entity.SysUserEntity">
+<mapper namespace="com.moyu.myadmin.dao.mapper.SysUserMapper">
+  <resultMap id="BaseResultMap" type="com.moyu.myadmin.dao.entity.SysUserEntity">
     <!--@mbg.generated-->
     <!--@Table sys_user-->
     <id column="user_id" jdbcType="VARCHAR" property="userId" />
@@ -15,6 +15,7 @@
     <result column="nationality" jdbcType="VARCHAR" property="nationality" />
     <result column="name" jdbcType="VARCHAR" property="name"/>
     <result column="state" jdbcType="VARCHAR" property="state"/>
+    <result column="create_date" javaType="java.time.LocalDateTime" property="createDate"/>
   </resultMap>
 
   <select id="queryListPage" resultMap="BaseResultMap">
@@ -31,6 +32,8 @@
       <if test="dto.username != null and dto.username != ''">
         and username like '%' || #{dto.username,jdbcType=VARCHAR} || '%'
       </if>
+
     </where>
+    order by user_code
   </select>
 </mapper>

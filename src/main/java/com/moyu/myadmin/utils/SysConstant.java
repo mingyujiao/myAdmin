@@ -10,4 +10,5 @@ public class SysConstant {
     private SysConstant() {}
 
     public static final String SESSION_KEY = "sysUser";
+
 }

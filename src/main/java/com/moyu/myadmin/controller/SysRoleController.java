@@ -1,9 +1,9 @@
 package com.moyu.myadmin.controller;
 
-import com.moyu.myadmin.entity.SysRoleEntity;
-import com.moyu.myadmin.entity.SysUserEntity;
+import com.moyu.myadmin.dao.entity.SysRoleEntity;
 import com.moyu.myadmin.service.SysRoleService;
 import com.moyu.myadmin.utils.ResultData;
+import com.moyu.myadmin.utils.ReturnCode;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.log4j.Log4j2;
@@ -43,7 +43,7 @@ public class SysRoleController {
     @PostMapping("save")
     public ResultData<String> save(SysRoleEntity entity) {
         boolean update = sysRoleService.saveOrUpdate(entity);
-        return update ? ResultData.success("保存成功") : ResultData.error("保存失败");
+        return update ? ResultData.success(ReturnCode.RC200.getMessage()) : ResultData.error(ReturnCode.RC999.getMessage());
     }
 }
 

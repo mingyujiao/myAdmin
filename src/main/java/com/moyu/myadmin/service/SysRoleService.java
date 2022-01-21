@@ -1,7 +1,7 @@
 package com.moyu.myadmin.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.moyu.myadmin.entity.SysRoleEntity;
+import com.moyu.myadmin.dao.entity.SysRoleEntity;
 
 import java.util.List;
 

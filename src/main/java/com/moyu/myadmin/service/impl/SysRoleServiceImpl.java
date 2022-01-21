@@ -1,8 +1,8 @@
 package com.moyu.myadmin.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.moyu.myadmin.entity.SysRoleEntity;
-import com.moyu.myadmin.mapper.SysRoleMapper;
+import com.moyu.myadmin.dao.entity.SysRoleEntity;
+import com.moyu.myadmin.dao.mapper.SysRoleMapper;
 import com.moyu.myadmin.service.SysRoleService;
 import org.springframework.stereotype.Service;
 

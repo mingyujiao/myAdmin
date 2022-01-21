@@ -5,8 +5,8 @@ import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.moyu.myadmin.dto.SysUserDTO;
-import com.moyu.myadmin.entity.SysUserEntity;
+import com.moyu.myadmin.model.dto.SysUserDTO;
+import com.moyu.myadmin.model.vo.SysUserVO;
 import com.moyu.myadmin.service.SysUserService;
 import com.moyu.myadmin.utils.QueryData;
 import com.moyu.myadmin.utils.ResultData;
@@ -20,7 +20,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
+
 
 @Log4j2
 @Api(tags = "用户管理")
@@ -37,38 +39,45 @@ public class SysUserController {
 
     @ApiOperation(value = "分页重新用户信息")
     @PostMapping("queryListPage")
-    public ResultData<Page<SysUserEntity>> queryListPage(@RequestBody QueryData<SysUserDTO> queryData) {
-        Page<SysUserEntity> page = sysUserService.queryListPage(queryData);
+    public ResultData<Page<SysUserVO>> queryListPage(@RequestBody QueryData<SysUserDTO> queryData) {
+        Page<SysUserVO> page = sysUserService.queryListPage(queryData);
         return ResultData.success(page);
     }
 
     @ApiOperation(value = "获取用户信息")
     @PostMapping("getUserByToken")
-    public ResultData<SysUserEntity> getUserByToken() {
+    public ResultData<SysUserVO> getUserByToken() {
         return ResultData.success(sysUserService.getUserByToken());
     }
 
     @ApiOperation(value = "查询所有用户信息")
     @PostMapping("queryList")
-    public ResultData<List<SysUserEntity>> queryList(SysUserEntity entity) {
-        List<SysUserEntity> userEntities = sysUserService.queryList(entity);
+    public ResultData<List<SysUserVO>> queryList(SysUserDTO entity) {
+        List<SysUserVO> userEntities = sysUserService.queryList(entity);
         return ResultData.success(userEntities);
     }
 
     @ApiImplicitParam(name = "entity", value = "登录信息", required = true)
     @ApiOperation(value = "用户登录")
     @PostMapping("doLogin")
-    public ResultData<Object> doLogin(@RequestBody SysUserEntity entity) {
+    public ResultData<Object> doLogin(@RequestBody SysUserDTO entity) {
         boolean loginFlag = sysUserService.doLogin(entity);
         SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
-        return loginFlag ? ResultData.success(tokenInfo) : ResultData.error(ReturnCode.RC999.getCode(), "登录失败");
+        return loginFlag ? ResultData.success(tokenInfo) : ResultData.error(ReturnCode.RC999.getMessage());
     }
 
     @ApiOperation(value = "添加用户")
     @PostMapping("save")
-    public ResultData<SysUserEntity> save(@ApiParam(value = "用户信息") @Valid @RequestBody SysUserEntity user) {
+    public ResultData<String> save(@ApiParam(value = "用户信息") @Valid @RequestBody SysUserDTO user) {
         boolean save = sysUserService.saveUser(user);
-        return save ? ResultData.success(user) : ResultData.error(ReturnCode.RC999.getCode(), ReturnCode.RC999.getMessage());
+        return save ? ResultData.success(ReturnCode.RC200.getMessage()) : ResultData.error(ReturnCode.RC999.getMessage());
+    }
+
+    @ApiOperation(value = "根据ID，批量删除用户信息")
+    @PostMapping("/deletes")
+    public ResultData<String> deletes(@Valid @NotEmpty(message = "主键不能为空") @RequestBody List<String> userIds) {
+        boolean remove = sysUserService.removeBatchByIds(userIds);
+        return remove ? ResultData.success(ReturnCode.RC200.getMessage()) : ResultData.error(ReturnCode.RC999.getMessage());
     }
 
     @GetMapping("logOut")
