@@ -17,13 +17,16 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
-
+@Validated
 @Log4j2
 @Api(tags = "用户管理")
 @RestController
@@ -75,8 +78,15 @@ public class SysUserController {
 
     @ApiOperation(value = "根据ID，批量删除用户信息")
     @PostMapping("/deletes")
-    public ResultData<String> deletes(@Valid @NotEmpty(message = "主键不能为空") @RequestBody List<String> userIds) {
+    public ResultData<String> deletes(@Valid @NotNull @Size(min = 1, message = "主键长度最小为1") @RequestBody List<String> userIds) {
         boolean remove = sysUserService.removeBatchByIds(userIds);
+        return remove ? ResultData.success(ReturnCode.RC200.getMessage()) : ResultData.error(ReturnCode.RC999.getMessage());
+    }
+
+    @ApiOperation(value = "根据ID，用户信息")
+    @PostMapping("/delete")
+    public ResultData<String> delete(@Valid @NotEmpty(message = "ID不能为空") @RequestBody String userId) {
+        boolean remove = sysUserService.removeById(userId);
         return remove ? ResultData.success(ReturnCode.RC200.getMessage()) : ResultData.error(ReturnCode.RC999.getMessage());
     }
 

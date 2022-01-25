@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author jiaomingyu5778@gmail.com
@@ -26,21 +30,25 @@ public class RestExceptionHandler {
 
     /**
      * 异常数据封装.
+     *
      * @param e 异常信息
      * @return 错误消息
      */
-    @ResponseBody
     @ExceptionHandler(value = BindException.class)
     public ResultData<String> handleValidException(BindException e) {
         BindingResult bindingResult = e.getBindingResult();
         if (bindingResult.hasErrors()) {
-            FieldError fieldError = bindingResult.getFieldError();
-            if (Objects.nonNull(fieldError)) {
-                log.error("参数验证失败，字段名称：{}，错误消息：{}", fieldError.getField(), fieldError.getDefaultMessage());
-                return ResultData.error(ReturnCode.RC999.getCode(), fieldError.getDefaultMessage());
-            }
+            String errMsg = bindingResult.getFieldErrors().stream().map(FieldError::getDefaultMessage).collect(Collectors.joining());
+            log.error("参数验证失败，错误消息：{}", errMsg);
+            return ResultData.error(ReturnCode.RC999.getCode(), errMsg);
         }
-        return ResultData.error(ReturnCode.RC999.getCode() , ReturnCode.RC999.getMessage());
+        return ResultData.error(ReturnCode.RC999.getCode(), ReturnCode.RC999.getMessage());
+    }
+
+    @ExceptionHandler(value = ConstraintViolationException.class)
+    public ResultData<String> constraintViolationException(ConstraintViolationException e) {
+        String message = e.getConstraintViolations().stream().map(ConstraintViolation::getMessage).collect(Collectors.joining());
+        return ResultData.error(ReturnCode.RC999.getCode(), message);
     }
 
     /**
