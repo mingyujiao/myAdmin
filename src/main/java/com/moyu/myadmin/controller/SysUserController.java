@@ -90,7 +90,7 @@ public class SysUserController {
         return remove ? ResultData.success(ReturnCode.RC200.getMessage()) : ResultData.error(ReturnCode.RC999.getMessage());
     }
 
-    @ApiOperation(value = "根据ID，用户信息")
+    @ApiOperation(value = "根据ID，删除用户信息")
     @PostMapping("/delete")
     public ResultData<String> delete(@Valid @NotEmpty(message = "ID不能为空") @RequestBody String userId) {
         boolean remove = sysUserService.removeById(userId);

@@ -76,8 +76,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
     @Override
     public Page<SysUserVO> queryListPage(QueryData<SysUserDTO> queryData) {
         Page<SysUserEntity> page = new Page<>(queryData.getPageNum(), queryData.getPageSize());
-        Page<SysUserEntity> entityPage = baseMapper.queryListPage(page, queryData.getData());
-        List<SysUserVO> voList = SysUserConvert.INSTANCE.toVoList(entityPage.getRecords());
+        page = baseMapper.queryListPage(page, queryData.getData());
+        List<SysUserVO> voList = SysUserConvert.INSTANCE.toVoList(page.getRecords());
         return PageConvert.convert(page, voList);
     }
 
