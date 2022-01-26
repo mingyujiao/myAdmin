@@ -87,4 +87,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
         log.info("当前登录用户信息：{}", session.get(SysConstant.SESSION_KEY));
         return (SysUserVO) session.get(SysConstant.SESSION_KEY);
     }
+
+    @Override
+    public boolean resetPwd(SysUserDTO user) {
+        String md5BySalt = getMd5BySalt(user);
+        user.setPassword(md5BySalt);
+        SysUserEntity entity = SysUserConvert.INSTANCE.dtoToEntity(user);
+        return this.saveOrUpdate(entity);
+    }
 }

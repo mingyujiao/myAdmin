@@ -76,6 +76,13 @@ public class SysUserController {
         return save ? ResultData.success(ReturnCode.RC200.getMessage()) : ResultData.error(ReturnCode.RC999.getMessage());
     }
 
+    @ApiOperation(value = "修改用户密码")
+    @PostMapping("resetPwd")
+    public ResultData<String> resetPwd(@Valid @RequestBody SysUserDTO user) {
+        boolean save = sysUserService.resetPwd(user);
+        return save ? ResultData.success(ReturnCode.RC200.getMessage()) : ResultData.error(ReturnCode.RC999.getMessage());
+    }
+
     @ApiOperation(value = "根据ID，批量删除用户信息")
     @PostMapping("/deletes")
     public ResultData<String> deletes(@Valid @NotNull @Size(min = 1, message = "主键长度最小为1") @RequestBody List<String> userIds) {

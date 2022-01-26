@@ -49,4 +49,11 @@ public interface SysUserService extends IService<SysUserEntity> {
      * 根据 id 获取用户信息
      */
     SysUserVO getUserByToken();
+
+    /**
+     * 重置用户密码
+     * @param user 用户 ID pwd
+     * @return 成功失败
+     */
+    boolean resetPwd(SysUserDTO user);
 }
