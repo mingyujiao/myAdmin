@@ -17,13 +17,6 @@ import java.util.List;
 public interface SysRoleService extends IService<SysRoleEntity> {
 
     /**
-     * 查询所有角色信息
-     * @param entity 查询对象
-     * @return 所有角色信息
-     */
-    List<SysRoleEntity> queryList(SysRoleEntity entity);
-
-    /**
      * 分页重新
      * @param queryData 重新信息
      * @return 查询结果
@@ -36,4 +29,10 @@ public interface SysRoleService extends IService<SysRoleEntity> {
      * @return 成功 失败
      */
     boolean saveRole(SysRoleDTO dto);
+
+    /**
+     * 查询所有启用的角色信息
+     * @return 角色
+     */
+    List<SysRoleVO> queryList();
 }

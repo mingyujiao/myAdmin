@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.moyu.myadmin.dao.mapper.SysUserRoleMapper">
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.moyu.myadmin.dao.entity.SysUserRoleEntity" id="sysUserRoleMap">
+        <result property="userRoleId" column="user_role_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="roleId" column="role_id"/>
+        <result property="state" column="state"/>
+        <result property="createDate" column="create_date"/>
+        <result property="createBy" column="create_by"/>
+        <result property="updateDate" column="update_date"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="rowVersion" column="row_version"/>
+        <result property="delFlag" column="del_flag"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        user_role_id, user_id, role_id, state, create_date, create_by, update_date, update_by, row_version, del_flag
+    </sql>
+
+    <select id="queryListPage" resultType="com.moyu.myadmin.dao.entity.SysUserRoleEntity">
+        select
+            <include refid="Base_Column_List">
+            </include>
+        from sys_user_role
+        <where>
+            del_flag = 0
+        </where>
+    </select>
+</mapper>

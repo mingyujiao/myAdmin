@@ -23,11 +23,6 @@ import java.util.List;
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleEntity> implements SysRoleService {
 
     @Override
-    public List<SysRoleEntity> queryList(SysRoleEntity entity) {
-        return this.lambdaQuery().list();
-    }
-
-    @Override
     public Page<SysRoleVO> queryListPage(QueryData<SysRoleDTO> queryData) {
         Page<SysRoleEntity> page = new Page<>(queryData.getPageNum(), queryData.getPageSize());
         page = baseMapper.queryListPage(page, queryData.getData());
@@ -39,5 +34,11 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRoleEntity
     public boolean saveRole(SysRoleDTO dto) {
         SysRoleEntity entity = SysRoleConvert.INSTANCE.dtoToEntity(dto);
         return this.saveOrUpdate(entity);
+    }
+
+    @Override
+    public List<SysRoleVO> queryList() {
+        List<SysRoleEntity> list = this.lambdaQuery().eq(SysRoleEntity::getState, "0").list();
+        return SysRoleConvert.INSTANCE.toVoList(list);
     }
 }

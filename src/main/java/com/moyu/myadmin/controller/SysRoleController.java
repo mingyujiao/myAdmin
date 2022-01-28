@@ -13,15 +13,10 @@ import io.swagger.annotations.ApiParam;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.List;
 
 /**
@@ -43,7 +38,7 @@ public class SysRoleController {
         this.sysRoleService = sysRoleService;
     }
 
-    @ApiOperation(value = "分页重新用户信息")
+    @ApiOperation(value = "分页查询用户信息")
     @PostMapping("queryListPage")
     public ResultData<Page<SysRoleVO>> queryList(@RequestBody QueryData<SysRoleDTO> queryData) {
         Page<SysRoleVO> page = sysRoleService.queryListPage(queryData);
