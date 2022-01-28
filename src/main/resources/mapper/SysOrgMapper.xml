@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.moyu.myadmin.dao.mapper.SysUserRoleMapper">
+<mapper namespace="com.moyu.myadmin.dao.mapper.SysOrgMapper">
     <!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.moyu.myadmin.dao.entity.SysUserRoleEntity" id="sysUserRoleMap">
-        <result property="userRoleId" column="user_role_id"/>
-        <result property="userId" column="user_id"/>
-        <result property="roleId" column="role_id"/>
+    <resultMap type="com.moyu.myadmin.dao.entity.SysOrgEntity" id="sysOrgMap">
+        <!--@mbg.generated-->
+        <!--@Table sys_org-->
+        <result property="orgId" column="org_id"/>
+        <result property="orgCode" column="org_code"/>
+        <result property="orgName" column="org_name"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="sortIndex" column="sort_index"/>
         <result property="state" column="state"/>
         <result property="createDate" column="create_date"/>
         <result property="createBy" column="create_by"/>
@@ -17,10 +21,13 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        user_role_id,
-        user_id,
-        role_id,
-        state,
+        <!--@mbg.generated-->
+        org_id,
+        org_code,
+        org_name,
+        parent_id,
+        sort_index,
+        "state",
         create_date,
         create_by,
         update_date,
@@ -29,11 +36,11 @@
         del_flag
     </sql>
 
-    <select id="queryListPage" resultType="com.moyu.myadmin.dao.entity.SysUserRoleEntity">
+    <select id="queryListPage" resultType="com.moyu.myadmin.dao.entity.SysOrgEntity">
         select
         <include refid="Base_Column_List">
         </include>
-        from sys_user_role
+        from sys_org
         <where>
             del_flag = 0
         </where>
