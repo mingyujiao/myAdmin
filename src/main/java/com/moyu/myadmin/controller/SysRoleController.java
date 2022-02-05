@@ -40,7 +40,7 @@ public class SysRoleController {
 
     @ApiOperation(value = "分页查询用户信息")
     @PostMapping("queryListPage")
-    public ResultData<Page<SysRoleVO>> queryList(@RequestBody QueryData<SysRoleDTO> queryData) {
+    public ResultData<Page<SysRoleVO>> queryListPage(@RequestBody QueryData<SysRoleDTO> queryData) {
         Page<SysRoleVO> page = sysRoleService.queryListPage(queryData);
         return ResultData.success(page);
     }

@@ -44,5 +44,6 @@
         <where>
             del_flag = 0
         </where>
+        order by sort_index
     </select>
 </mapper>

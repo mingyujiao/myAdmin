@@ -54,7 +54,7 @@ public class SysUserRoleController {
 
     @ApiOperation(value = "分页查询角色用户关联表信息")
     @PostMapping("queryListPage")
-    public ResultData<Page<SysUserRoleVO>> queryList(@RequestBody QueryData<SysUserRoleDTO> queryData) {
+    public ResultData<Page<SysUserRoleVO>> queryListPage(@RequestBody QueryData<SysUserRoleDTO> queryData) {
         log.info("角色用户关联表查询，查询信息：{}", queryData);
         Page<SysUserRoleVO> page = service.queryListPage(queryData);
         return ResultData.success(page);

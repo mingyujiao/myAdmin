@@ -1,10 +1,11 @@
 package com.moyu.myadmin.dao.mapper;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.moyu.myadmin.dao.entity.SysOrgEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.moyu.myadmin.model.dto.SysOrgDTO;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * 组织机构表
@@ -17,9 +18,8 @@ public interface SysOrgMapper extends BaseMapper<SysOrgEntity> {
 
     /**
      * 分页查询
-     * @param page 分页参数
      * @param data 查询参数
      * @return 结果集
      */
-    Page<SysOrgEntity> queryListPage(Page<SysOrgEntity> page, SysOrgDTO data);
+    List<SysOrgEntity> queryListPage(SysOrgDTO data);
 }

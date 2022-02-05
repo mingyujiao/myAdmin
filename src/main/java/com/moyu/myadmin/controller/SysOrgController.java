@@ -1,10 +1,8 @@
 package com.moyu.myadmin.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import  com.moyu.myadmin.model.dto.SysOrgDTO;
 import  com.moyu.myadmin.model.vo.SysOrgVO;
 import  com.moyu.myadmin.service.SysOrgService;
-import  com.moyu.myadmin.utils.QueryData;
 import  com.moyu.myadmin.utils.ResultData;
 import  com.moyu.myadmin.utils.ReturnCode;
 import io.swagger.annotations.Api;
@@ -12,7 +10,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -40,10 +37,18 @@ public class SysOrgController {
 
     @ApiOperation(value = "分页查询组织机构表信息")
     @PostMapping("queryListPage")
-    public ResultData<Page<SysOrgVO>> queryList(@RequestBody QueryData<SysOrgDTO> queryData) {
+    public ResultData<List<SysOrgVO>> queryListPage(@RequestBody SysOrgDTO queryData) {
         log.info("组织机构表查询，查询信息：{}", queryData);
-        Page<SysOrgVO> page = service.queryListPage(queryData);
+        List<SysOrgVO> page = service.queryListPage(queryData);
         return ResultData.success(page);
+    }
+
+    @ApiOperation(value = "查询组织机构表全部信息")
+    @PostMapping("queryAllList")
+    public ResultData<List<SysOrgVO>> queryAllList(@RequestBody SysOrgDTO queryData) {
+        log.info("组织机构表查询，查询信息：{}", queryData);
+        List<SysOrgVO> voList = service.queryAllList(queryData);
+        return ResultData.success(voList);
     }
 
     @ApiOperation(value = "保存组织机构表信息")
