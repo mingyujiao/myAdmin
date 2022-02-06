@@ -5,8 +5,8 @@ import java.io.Serializable;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.moyu.myadmin.utils.PublicField;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import io.swagger.annotations.ApiModel;
+import lombok.*;
 
 /**
  * 组织机构表
@@ -15,7 +15,11 @@ import lombok.EqualsAndHashCode;
  * @date 2022-01-28 20:23:03
  */
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@ApiModel("组织机构表")
 @TableName("sys_org")
 public class SysOrgEntity extends PublicField implements Serializable {
 

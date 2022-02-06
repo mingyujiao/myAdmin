@@ -20,26 +20,9 @@
         <result property="delFlag" column="del_flag"/>
     </resultMap>
 
-    <sql id="Base_Column_List">
-        <!--@mbg.generated-->
-        org_id,
-        org_code,
-        org_name,
-        parent_id,
-        sort_index,
-        "state",
-        create_date,
-        create_by,
-        update_date,
-        update_by,
-        row_version,
-        del_flag
-    </sql>
-
     <select id="queryListPage" resultType="com.moyu.myadmin.dao.entity.SysOrgEntity">
-        select
-        <include refid="Base_Column_List">
-        </include>
+        select org_id, org_code, org_name, parent_id, sort_index,
+        state, create_date, create_by, update_date, update_by, row_version, del_flag
         from sys_org
         <where>
             del_flag = 0

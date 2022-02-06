@@ -81,4 +81,11 @@ public class SysUserDTO implements Serializable {
     @ApiModelProperty(value="真实名称")
     private String name;
 
+
+    /**
+     * 所属机构
+     */
+    @ApiModelProperty(value="所属机构")
+    private String orgId;
+
 }

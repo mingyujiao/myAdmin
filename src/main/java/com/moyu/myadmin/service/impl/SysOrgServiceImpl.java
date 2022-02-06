@@ -35,4 +35,12 @@ public class SysOrgServiceImpl extends ServiceImpl<SysOrgMapper, SysOrgEntity> i
         List<SysOrgEntity> list = baseMapper.selectList(query);
         return SysOrgConvert.INSTANCE.toVoList(list);
     }
+
+    @Override
+    public boolean existOrgCode(SysOrgDTO dto) {
+        if (Objects.nonNull(dto.getOrgId())) {
+            return false;
+        }
+        return this.lambdaQuery().eq(SysOrgEntity::getOrgCode, dto.getOrgCode()).exists();
+    }
 }

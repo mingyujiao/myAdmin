@@ -42,7 +42,7 @@ public class PublicField {
      * 版本（用于乐观锁）
      */
     @Version
-    @TableField(fill = FieldFill.INSERT,update = "%s+1")
+    @TableField(fill = FieldFill.INSERT_UPDATE, update = "%s+1")
     private Integer rowVersion;
 
     /**

@@ -35,5 +35,12 @@ public interface SysOrgService extends IService<SysOrgEntity> {
      * @return /
      */
     List<SysOrgVO> queryAllList(SysOrgDTO queryData);
+
+    /**
+     * 根据机构编码查询机构信息
+     * @param dto 机构编码
+     * @return 是否存在
+     */
+    boolean existOrgCode(SysOrgDTO dto);
 }
 

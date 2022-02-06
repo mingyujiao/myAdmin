@@ -55,6 +55,10 @@ public class SysOrgController {
     @PostMapping("save")
     public ResultData<String> save(@ApiParam(value = "角色信息") @Valid @RequestBody SysOrgDTO dto) {
         log.info("组织机构表保存，保存信息：{}", dto);
+        boolean existOrgCode = service.existOrgCode(dto);
+        if (existOrgCode) {
+            return ResultData.error("该机构编码已存在，请修改后重新保存！");
+        }
         boolean update = service.save(dto);
         return update ? ResultData.success(ReturnCode.RC200.getMessage()) : ResultData.error(ReturnCode.RC999.getMessage());
     }

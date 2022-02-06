@@ -5,8 +5,8 @@ import io.swagger.annotations.ApiModelProperty;
 import com.moyu.myadmin.utils.PublicField;
 
 import java.io.Serializable;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import lombok.*;
 
 /**
  * 组织机构表
@@ -16,6 +16,9 @@ import lombok.EqualsAndHashCode;
  */
 
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @ApiModel("组织机构表")
 public class SysOrgDTO extends PublicField implements Serializable {
