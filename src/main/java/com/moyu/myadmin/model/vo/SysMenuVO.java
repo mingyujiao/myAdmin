@@ -50,7 +50,7 @@ public class SysMenuVO extends PublicField implements Serializable {
 	 * 排序
 	 */
 	@ApiModelProperty("排序")
-	private Integer indexSort;
+	private Integer sortIndex;
 	/**
 	 * 0 启用 1 停用
 	 */

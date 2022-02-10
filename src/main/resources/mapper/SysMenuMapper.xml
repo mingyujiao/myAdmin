@@ -9,7 +9,7 @@
         <result property="title" column="title"/>
         <result property="icon" column="icon"/>
         <result property="menuPath" column="menu_path"/>
-        <result property="indexSort" column="index_sort"/>
+        <result property="sortIndex" column="sort_index"/>
         <result property="state" column="state"/>
         <result property="createDate" column="create_date"/>
         <result property="createBy" column="create_by"/>
@@ -27,7 +27,7 @@
         , title
         , icon
         , menu_path
-        , index_sort
+        , sort_index
         , state
         , create_date
         , create_by
@@ -46,5 +46,6 @@
         <where>
             del_flag = 0
         </where>
+        order by sort_index
     </select>
 </mapper>

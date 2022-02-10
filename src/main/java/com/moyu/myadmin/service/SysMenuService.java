@@ -1,11 +1,11 @@
 package com.moyu.myadmin.service;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.moyu.myadmin.dao.entity.SysMenuEntity;
 import com.moyu.myadmin.model.dto.SysMenuDTO;
 import com.moyu.myadmin.model.vo.SysMenuVO;
-import com.moyu.myadmin.utils.QueryData;
+
+import java.util.List;
 
 /**
  * 菜单管理
@@ -20,7 +20,7 @@ public interface SysMenuService extends IService<SysMenuEntity> {
      * @param queryData 查询参数
      * @return 查询结果
      */
-    Page<SysMenuVO> queryListPage(QueryData<SysMenuDTO> queryData);
+    List<SysMenuVO> queryListPage(SysMenuDTO queryData);
 
     /**
      * 角色保存
@@ -28,5 +28,12 @@ public interface SysMenuService extends IService<SysMenuEntity> {
      * @return 成功 失败
      */
     boolean save(SysMenuDTO dto);
+
+    /**
+     * 查询菜单管理信息
+     * @param queryData 查询参数
+     * @return 查询结果
+     */
+    List<SysMenuVO> queryAllList(SysMenuDTO queryData);
 }
 

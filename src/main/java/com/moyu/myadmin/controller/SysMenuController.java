@@ -1,10 +1,8 @@
 package com.moyu.myadmin.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import  com.moyu.myadmin.model.dto.SysMenuDTO;
 import  com.moyu.myadmin.model.vo.SysMenuVO;
 import  com.moyu.myadmin.service.SysMenuService;
-import  com.moyu.myadmin.utils.QueryData;
 import  com.moyu.myadmin.utils.ResultData;
 import  com.moyu.myadmin.utils.ReturnCode;
 import io.swagger.annotations.Api;
@@ -41,10 +39,18 @@ public class SysMenuController {
 
     @ApiOperation(value = "分页查询菜单管理信息")
     @PostMapping("queryListPage")
-    public ResultData<Page<SysMenuVO>> queryList(@RequestBody QueryData<SysMenuDTO> queryData) {
+    public ResultData<List<SysMenuVO>> queryList(@RequestBody SysMenuDTO queryData) {
         log.info("菜单管理查询，查询信息：{}", queryData);
-        Page<SysMenuVO> page = service.queryListPage(queryData);
+        List<SysMenuVO> page = service.queryListPage(queryData);
         return ResultData.success(page);
+    }
+
+    @ApiOperation(value = "查询菜单管理信息")
+    @PostMapping("queryAllList")
+    public ResultData<List<SysMenuVO>> queryAllList(@RequestBody SysMenuDTO queryData) {
+        log.info("查询菜单管理信息，查询信息：{}", queryData);
+        List<SysMenuVO> voList = service.queryAllList(queryData);
+        return ResultData.success(voList);
     }
 
     @ApiOperation(value = "保存菜单管理信息")

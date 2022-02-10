@@ -84,8 +84,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUserEntity
     @Override
     public SysUserVO getUserByToken() {
         SaSession session = StpUtil.getTokenSession();
-        log.info("当前登录用户信息：{}", session.get(SysConstant.SESSION_KEY));
-        return (SysUserVO) session.get(SysConstant.SESSION_KEY);
+        SysUserEntity entity = (SysUserEntity) session.get(SysConstant.SESSION_KEY);
+        log.info("当前登录用户信息：{}", entity);
+        return SysUserConvert.INSTANCE.toVo(entity);
     }
 
     @Override
